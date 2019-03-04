@@ -9,7 +9,7 @@ import Togglable from './components/Togglable'
 import useField from './hooks/useField'
 import { Table, Button, Badge } from 'react-bootstrap'
 
-const App = () => {
+const App = (props) => {
   const [errorMessage, setErrorMessage] = useState('')
   const [user, setUser] = useState(null)
   const [message, setMessage] = useState('')
