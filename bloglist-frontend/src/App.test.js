@@ -1,6 +1,5 @@
 import React from 'react'
 import App from './App'
-import blogService from './services/blogs'
 import { render, waitForElement, fireEvent } from 'react-testing-library'
 
 describe('App', () => {

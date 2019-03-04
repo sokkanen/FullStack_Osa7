@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import Blog from './components/Blog'
 import loginService from './services/login'
+import blogService from './services/blogService'
 import Notification from './components/Notification'
 import NewBlogForm from './components/NewBlogForm'
 import LoginForm from './components/LoginForm'
 import Togglable from './components/Togglable'
 import useField from './hooks/useField'
-import useResource from './hooks/useResource'
 import { Table, Button, Badge } from 'react-bootstrap'
 
 const App = () => {
@@ -18,10 +18,14 @@ const App = () => {
   const blogurl = useField('text')
   const blogauthor = useField('text')
   const blogname = useField('text')
-  const [blogs, blogService] = useResource('/api/blogs')
+  const [blogs, setBlogs] = useState([])
 
   useEffect(() => {
-    setTheBlogs()
+    blogService
+    .getAll()
+    .then(blogs => {
+      setBlogs(blogs)
+    })
   }, [])
 
   useEffect(() => {
@@ -35,14 +39,10 @@ const App = () => {
     }
   }, [])
 
-  const setTheBlogs = (async () => {
-    await blogService.getAll()
-  })
-
   const handleLogin = async (event) => {
     event.preventDefault()
     try {
-      const user = await loginService.login(username.value, password.value)
+      const user = loginService.login(username.value, password.value)
       window.localStorage.setItem(
         'logged', JSON.stringify(user)
       )
@@ -53,6 +53,7 @@ const App = () => {
         setErrorMessage('')
       }, 2000)
     } catch (exception){
+      console.log(exception)
       username.reset()
       password.reset()
       setErrorMessage('Virheellinen käyttäjätunnus tai salasana')
@@ -90,7 +91,6 @@ const App = () => {
     try {
       await blogService.create(blog)
       setMessage(`A new blog ${blog.title} by ${blog.author} added`)
-      setTheBlogs()
       setTimeout(() => {
         setMessage('')
       }, 4000)

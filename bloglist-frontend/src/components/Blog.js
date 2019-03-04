@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import useResource from '../hooks/useResource'
+import blogService from '../services/blogService'
 import { Button } from 'react-bootstrap'
 
 const Blog = ({ blog, username }) => {
@@ -11,7 +11,6 @@ const Blog = ({ blog, username }) => {
   }
 
   const [visible, setVisible] = useState(false)
-  const [blogs, blogService] = useResource('/api/blogs')
   const hide = { display: visible ? 'none' : '' }
   const show = { display: visible ? '' : 'none' }
 

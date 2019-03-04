@@ -1,21 +1,18 @@
 import axios from 'axios'
-import { useState } from 'react'
-import useField from './useField'
+const baseUrl = '/api/blogs'
 
-const useResource = (baseUrl) => {
-  const [resources, setResources] = useState([])
-  const token = useField('text')
+let token = null
 
   const setToken = ( newToken) => {
-    token.value = `bearer ${newToken}`
+    token = `bearer ${newToken}`
   }
 
   const removeToken = () => {
-    token.reset()
+    token = ''
   }
 
   const getToken = () => {
-    return token.value
+    return token
   }
 
   const getAll = async () => {
@@ -23,26 +20,26 @@ const useResource = (baseUrl) => {
     const request = await axios.get(baseUrl)
     tbl = request.data
     tbl.sort((a,b) => b.likes - a.likes)
-    setResources(tbl)
+    return tbl
   }
       
   const create = async (newObject) => {
     const config = {
-      headers: { Authorization: token.value }
+      headers: { Authorization: token }
     }
       
     const response = await axios.post(baseUrl, newObject, config)
-    const newAdded = resources.concat(response.data)
-    setResources(newAdded)
+    return response.data
   }
 
   const update = async (id, newObject) => {
-    await axios.put(`${baseUrl}/${id}`, newObject)
+    const req = await axios.put(`${baseUrl}/${id}`, newObject)
+    return req.then(res => res.data)
   }
   
   const remove = async (id) => {
     const config = {
-      headers: { Authorization: token.value },
+      headers: { Authorization: token },
       id: id
     }
     console.log(config)
@@ -51,19 +48,4 @@ const useResource = (baseUrl) => {
     getAll()
   }
 
-  const service = {
-    create,
-    setToken,
-    getToken,
-    removeToken,
-    getAll,
-    update,
-    remove
-  }
-
-  return [
-    resources, service
-  ]
-}
-
-export default useResource
+export default { setToken, removeToken, getToken, getAll, create, update, remove }
