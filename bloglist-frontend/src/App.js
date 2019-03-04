@@ -9,7 +9,7 @@ import Togglable from './components/Togglable'
 import useField from './hooks/useField'
 import { Table, Button, Badge } from 'react-bootstrap'
 
-const App = (props) => {
+const App = () => {
   const [errorMessage, setErrorMessage] = useState('')
   const [user, setUser] = useState(null)
   const [message, setMessage] = useState('')
@@ -108,7 +108,7 @@ const App = (props) => {
     return (
       <div class="container">
         <h2>blogs</h2>
-        <Notification message = {errorMessage}/>
+        <Notification/>
         <Togglable buttonLabel='login'>
           <LoginForm
             handleLogin = {handleLogin}
@@ -125,17 +125,11 @@ const App = (props) => {
   return (
     <div class="container">
       <h2><Badge variant="secondary">Blogs</Badge></h2>
-      <Notification message = {errorMessage}/>
+      <Notification/>
       <div>
         <h5><Badge variant="info">{user.name} logged in </Badge></h5>
         {logOutForm()}
-        <NewBlogForm
-          message = {message}
-          newBlogHandler = {newBlogHandler}
-          blogname = {name}
-          blogauthor = {author}
-          blogurl = {url}
-        />
+        <NewBlogForm/>
       </div>
       <Table hover>
         <tbody>

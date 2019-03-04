@@ -1,15 +1,24 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import '../index.css'
 
-const Notification = ({ message }) => {
-  if (message === ''){
+const Notification = (props) => {
+  if (props.notification === ''){
     return null
   }
   return (
     <div className="info">
-      <h3>{message}</h3>
+      <h3>{props.notification}</h3>
     </div>
   )
 }
 
-export default Notification
+const mapStateToProps = (state) => {
+  return {
+    notification: state.notification
+  }
+}
+
+const ConnectedNotification = connect(mapStateToProps)(Notification)
+
+export default ConnectedNotification
