@@ -17,8 +17,16 @@ const createNew = (event) => {
   event.target.title.value = ''
   event.target.author.value = ''
   event.target.url.value = ''
-  props.setNotification(`A new blog ${event.target.title.value} by ${event.target.author.value} added`, 5)
-  props.newBlog(blog)
+  if (blog.title === '' || blog.author === '' || blog.url === ''){
+    props.setNotification('Please enter title, author and an url.', 3)
+  } else {
+    try {
+      props.newBlog(blog)
+      props.setNotification(`A new blog ${blog.title} by ${blog.author} added`, 5)
+    } catch (error) {
+      props.setNotification(`Virhe uuden blogin luomisessa: ${error.message}`, 5)
+    }
+  }
 }
 
 return (

@@ -3,6 +3,30 @@ import { Form , Button } from 'react-bootstrap'
 
 const LoginForm = ({ handleLogin, username, password }) => {
 
+  /*const handleLogin = async (event) => {
+    event.preventDefault()
+    try {
+      const user = loginService.login(username.value, password.value)
+      window.localStorage.setItem(
+        'logged', JSON.stringify(user)
+      )
+      blogService.setToken(user.token)
+      setUser(user)
+      setErrorMessage(`Käyttäjä ${username.value} kirjautunut`)
+      setTimeout(() => {
+        setErrorMessage('')
+      }, 2000)
+    } catch (exception){
+      console.log(exception)
+      username.reset()
+      password.reset()
+      setErrorMessage('Virheellinen käyttäjätunnus tai salasana')
+      setTimeout(() => {
+        setErrorMessage('')
+      }, 4000)
+    }
+  }*/
+
   return (
     <form onSubmit={handleLogin}>
       <Form.Group>

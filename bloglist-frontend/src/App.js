@@ -12,7 +12,6 @@ import { Table, Button, Badge } from 'react-bootstrap'
 const App = () => {
   const [errorMessage, setErrorMessage] = useState('')
   const [user, setUser] = useState(null)
-  const [message, setMessage] = useState('')
   const username = useField('text')
   const password = useField('password')
   const blogurl = useField('text')
@@ -79,28 +78,6 @@ const App = () => {
       </div>
     </form>
   )
-
-  const newBlogHandler = async (event) => {
-    event.preventDefault()
-    const blog = {
-      'title': blogname.value,
-      'author': blogauthor.value,
-      'url': blogurl.value,
-      'likes': 0
-    }
-    try {
-      await blogService.create(blog)
-      setMessage(`A new blog ${blog.title} by ${blog.author} added`)
-      setTimeout(() => {
-        setMessage('')
-      }, 4000)
-    } catch (error) {
-      setMessage(`Virhe uuden blogin luomisessa: ${error.message}`)
-      setTimeout(() => {
-        setMessage('')
-      }, 4000)
-    }
-  }
 
   if (user === null){
     let { reset, ...name } = username
