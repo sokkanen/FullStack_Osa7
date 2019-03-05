@@ -1,0 +1,7 @@
+
+PUT http://localhost:3003/api/blogs/5c680e333cb15b29927a86be
+Content-Type: application/json
+
+{
+    "id": "5c680e333cb15b29927a86be"
+}

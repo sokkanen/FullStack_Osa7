@@ -1,0 +1,10 @@
+POST http://localhost:3003/api/blogs
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImphcGlrIiwiaWQiOiI1YzY4MTY2YmNkOWJhZTMwMGE1OWVlZmMiLCJpYXQiOjE1NTAzMjgyNTh9.h7Yyy7bSWcnceQaImoEMHTFqpTI_bpR7n_4bqxgj76U
+
+{
+    "title":"eipitaisonnistuu",
+    "author":"Jammu",
+    "url":"http://www.eieieieieieieieie22.fi",
+    "likes": 0
+}
