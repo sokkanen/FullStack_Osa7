@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import { getAllUsers } from '../reducers/appUsersReducer'
 import { Table } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
 
 const UserList = (props) => {
 
@@ -21,14 +22,17 @@ const UserList = (props) => {
           <tbody>
             <th>Name</th>
             <th>Blogs</th>
-            {props.users.map(user => <tr key={user.id}>
-              <td>
-                {user.name}
-              </td>
-              <td>
-                {user.blogs.length}
-              </td>
-            </tr>
+            {props.users.map(user =>
+              <tr key={user.id}>
+                <Link to={`/users/${user.id}`}>
+                  <td>
+                    {user.name}
+                  </td>
+                </Link>
+                <td>
+                  {user.blogs.length}
+                </td>
+              </tr>
             )}
           </tbody>
         </Table>

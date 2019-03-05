@@ -6,6 +6,7 @@ import UserList from './components/UserList'
 import LoginForm from './components/LoginForm'
 import LogOutForm from './components/LogoutForm'
 import Togglable from './components/Togglable'
+import User from './components/User'
 import { setUser, logout } from './reducers/userReducer'
 import { getAll } from './reducers/blogReducer'
 import { connect } from 'react-redux'
@@ -14,6 +15,7 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 
 const App = (props) => {
   const user = props.user
+  const users = props.users
 
   useEffect(() => {
     const logged = window.localStorage.getItem('logged')
@@ -24,6 +26,12 @@ const App = (props) => {
       props.setUser(null)
     }
   },[])
+
+  const userById = (id) => {
+    return (
+      users.find(u => u.id === id)
+    )
+  }
 
   const MainView = () => {
     if (user === null){
@@ -99,7 +107,10 @@ const App = (props) => {
       <div className="container">
         <BlogAppNavBar/>
         <Route exact path="/" render={() => <MainView/>} />
-        <Route path="/users" render={() => <UsersView />} />
+        <Route exact path="/users" render={() => <UsersView />} />
+        <Route exact path="/users/:id" render={({ match }) =>
+          <User user={userById(match.params.id)} />
+        } />
       </div>
     </Router>
   )
@@ -107,7 +118,8 @@ const App = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    user: state.user
+    user: state.user,
+    users: state.users
   }
 }
 
