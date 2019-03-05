@@ -21,7 +21,7 @@ describe('App', () => {
       () => component.getByText('kirjaudu')
     )
     expect(loginButton).toBeDefined()
-    
+
     // Blogilistan pituus on 0 === lista ei ole näkyvissä
     const blogs = component.container.querySelectorAll('.blog')
     expect(blogs.length).toBe(0)
@@ -46,7 +46,7 @@ describe('App', () => {
     // Blogilistan pituus on 1 === lista on näkyvissä
     const bloglist = component.container.querySelectorAll('.bloglist')
     expect(bloglist.length).toBe(1)
-    
+
     // ..ja listalla on 6 blogia
     await waitForElement(
       () => component.container.querySelectorAll('.blog')

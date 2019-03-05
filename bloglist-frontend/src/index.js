@@ -5,10 +5,10 @@ import App from './App'
 import store from './store'
 
 const render = () => {
-    ReactDOM.render(
+  ReactDOM.render(
     <Provider store={store}>
-        <App/>
-    </Provider>, 
+      <App/>
+    </Provider>,
     document.getElementById('root'))}
 
 render()

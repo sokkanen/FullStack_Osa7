@@ -6,23 +6,23 @@ import { connect } from 'react-redux'
 
 const LogOutForm = (props) => {
 
-    const logOutHandler = () => {
-        props.setNotification(`${props.user.username} logged out`, 5)
-        props.logout()
-    }
+  const logOutHandler = () => {
+    props.setNotification(`${props.user.username} logged out`, 5)
+    props.logout()
+  }
 
-    return(
+  return(
     <form onSubmit={logOutHandler}>
       <div>
         <Button variant="danger" type="submit">logout</Button>
       </div>
     </form>
-    )
+  )
 }
 
 const mapDispatchToProps = {
-    logout, 
-    setNotification
+  logout,
+  setNotification
 }
 
 const mapStateToProps = (state) => {

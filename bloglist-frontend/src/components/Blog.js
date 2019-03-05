@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Button } from 'react-bootstrap'
-import { removeBlog, updateBlog } from '../reducers/blogReducer'
+import { removeBlog, updateBlog } from '../reducers/blogReducer'
 
 const Blog = (props) => {
 

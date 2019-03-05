@@ -2,21 +2,21 @@ import blogService from '../services/blogService'
 
 const blogReducer = (state = [], action) => {
   switch (action.type) {
-    case 'GET_ALL':
-      return action.data
-    case 'NEW_BLOG':
-      return [...state, action.data]
-    case 'REMOVE_BLOG':
-      const rid = action.data
-      const blogs = state.filter(b => b.id !== rid)
-      return blogs
-    case 'UPDATE_BLOG':
-      const id = action.data
-      const blog = state.find(b => b.id === id)
-      const updatedblogs = state.map(b => b.id !== id ? b : blog).sort((a,b) => b.likes - a.likes)
-      return updatedblogs
-    default:
-      return state 
+  case 'GET_ALL':
+    return action.data
+  case 'NEW_BLOG':
+    return [...state, action.data]
+  case 'REMOVE_BLOG':
+    const rid = action.data
+    const blogs = state.filter(b => b.id !== rid)
+    return blogs
+  case 'UPDATE_BLOG':
+    const id = action.data
+    const blog = state.find(b => b.id === id)
+    const updatedblogs = state.map(b => b.id !== id ? b : blog).sort((a,b) => b.likes - a.likes)
+    return updatedblogs
+  default:
+    return state
   }
 }
 

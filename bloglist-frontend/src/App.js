@@ -31,7 +31,7 @@ const App = (props) => {
         <div className="container">
           <Notification/>
           <Togglable buttonLabel='login'>
-          <LoginForm/>
+            <LoginForm/>
           </Togglable>
         </div>
       )
@@ -42,7 +42,7 @@ const App = (props) => {
         <NewBlogForm/>
         <BlogList/>
       </div>
-      )
+    )
   }
 
   const UsersView = () => {
@@ -51,56 +51,56 @@ const App = (props) => {
         <div className="container">
           <Notification/>
           <Togglable buttonLabel='login'>
-          <LoginForm/>
+            <LoginForm/>
           </Togglable>
         </div>
       )
     }
     return (
       <div>
-      <UserList/>
+        <UserList/>
       </div>
     )
   }
 
 
-  const linkPadding = {padding: 5, color: "white"}
+  const linkPadding = { padding: 5, color: 'white' }
 
   const BlogAppNavBar = () => {
     if (user === null){
       return (
         <Navbar bg="dark" variant="dark "expand="lg">
-        <Navbar.Brand href="/">BlogApp</Navbar.Brand>
+          <Navbar.Brand href="/">BlogApp</Navbar.Brand>
         </Navbar>
       )
     }
     return (
       <div>
-      <Navbar bg="dark" variant="dark "expand="lg">
-      <Navbar.Brand href="/">BlogApp</Navbar.Brand>
-      <Navbar.Toggle aria-controls="basic-navbar-nav" />
-      <Navbar.Collapse id="basic-navbar-nav">
-      <Nav className="menu">
-      <div>
-        <Link style={linkPadding} to="/">Blogs</Link>
-        <Link style={linkPadding} to="/users">Users</Link>
-      </div>
-      </Nav>
-      </Navbar.Collapse>
-      <Badge variant="info">{user.name} logged in </Badge>
-      <LogOutForm/>
-      </Navbar>
+        <Navbar bg="dark" variant="dark "expand="lg">
+          <Navbar.Brand href="/">BlogApp</Navbar.Brand>
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Navbar.Collapse id="basic-navbar-nav">
+            <Nav className="menu">
+              <div>
+                <Link style={linkPadding} to="/">Blogs</Link>
+                <Link style={linkPadding} to="/users">Users</Link>
+              </div>
+            </Nav>
+          </Navbar.Collapse>
+          <Badge variant="info">{user.name} logged in </Badge>
+          <LogOutForm/>
+        </Navbar>
       </div>
     )
   }
 
   return (
     <Router>
-    <div className="container">
-    <BlogAppNavBar/>
-    <Route exact path="/" render={() => <MainView/>} />  
-    <Route path="/users" render={() => <UsersView />} />
-    </div>
+      <div className="container">
+        <BlogAppNavBar/>
+        <Route exact path="/" render={() => <MainView/>} />
+        <Route path="/users" render={() => <UsersView />} />
+      </div>
     </Router>
   )
 }

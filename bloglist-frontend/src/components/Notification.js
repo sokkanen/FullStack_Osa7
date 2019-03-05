@@ -9,9 +9,9 @@ const Notification = (props) => {
   }
   return (
     <div>
-    <Alert variant="info">
-      <h3>{props.notification}</h3>
-    </Alert>
+      <Alert variant="info">
+        <h3>{props.notification}</h3>
+      </Alert>
     </div>
   )
 }
