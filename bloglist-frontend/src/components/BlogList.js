@@ -8,7 +8,6 @@ const BlogList = (props) => {
     const blogs = props.blogs
     const user = props.user
 
-
     useEffect(()=> {
       props.getAll()
     }, [])

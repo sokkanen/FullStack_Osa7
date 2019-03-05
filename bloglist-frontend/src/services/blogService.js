@@ -32,9 +32,9 @@ let token = null
     return response.data
   }
 
-  const update = async (id, newObject) => {
-    const req = await axios.put(`${baseUrl}/${id}`, newObject)
-    return req.then(res => res.data)
+  const update = async (id) => {
+    const res = await axios.put(`${baseUrl}/${id}`)
+    return res.data
   }
   
   const remove = async (id) => {

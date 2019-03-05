@@ -26,7 +26,7 @@ const createNew = (event) => {
   } else {
     try {
       props.newBlog(blog)
-      //props.setNotification(`A new blog ${blog.title} by ${blog.author} added`, 5)
+      props.setNotification(`A new blog ${blog.title} by ${blog.author} added`, 5)
     } catch (error) {
       props.setNotification(`Virhe uuden blogin luomisessa: ${error.message}`, 5)
     }

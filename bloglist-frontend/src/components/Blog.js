@@ -1,10 +1,13 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import blogService from '../services/blogService'
+import { connect } from 'react-redux'
 import { Button } from 'react-bootstrap'
+import { removeBlog, updateBlog } from '../reducers/blogReducer'
 
-const Blog = ({ blog, username }) => {
+const Blog = (props) => {
 
+  const username = props.username
+  const blog = props.blog
   Blog.propTypes = {
     blog: PropTypes.object.isRequired,
     username: PropTypes.string.isRequired
@@ -25,13 +28,12 @@ const Blog = ({ blog, username }) => {
   }
 
   const likeHandler = () => {
-    blog.likes = blog.likes + 1
-    blogService.update(blog.id, blog)
+    props.updateBlog(blog)
   }
 
   const removeHandler = () => {
     if (window.confirm(`Are you sure you want to remove ${blog.title} by ${blog.author} ?`)){
-      blogService.remove(blog.id)
+      props.removeBlog(blog.id)
     }
   }
 
@@ -75,4 +77,11 @@ const Blog = ({ blog, username }) => {
   )
 }
 
-export default Blog
+const mapDispatchToProps = {
+  removeBlog,
+  updateBlog
+}
+
+const ConnectedBlog = connect(null, mapDispatchToProps)(Blog)
+
+export default ConnectedBlog
