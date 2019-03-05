@@ -1,11 +1,9 @@
-const notificationReducer = (state=null, action) => {
+const notificationReducer = (state='', action) => {
     switch (action.type) {
         case 'NEW_MESSAGE':
             return action.data
-        case 'ZERO':
-            return null
         default:
-            return null;
+            return state
     }
 }
 
@@ -13,11 +11,16 @@ export default notificationReducer
 
 export const setNotification = (message, time) => {
     return async dispatch => {
-      await dispatch({ type: 'NEW_MESSAGE', data: message })
+      await dispatch(
+        { 
+          type: 'NEW_MESSAGE', 
+          data: message 
+        })
       setTimeout(() => {
         dispatch({
-          type: 'ZERO'
+          type: 'NEW_MESSAGE',
+          data: ''
         })
       }, time * 1000);
     }
-  }
+}

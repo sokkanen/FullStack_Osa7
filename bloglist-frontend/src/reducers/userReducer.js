@@ -4,12 +4,13 @@ import blogService from '../services/blogService'
 const userReducer = (state=null, action) => {
     switch (action.type) {
         case 'LOGIN':
-            console.log(action.data)
             return action.data
         case 'LOGOUT':
             return null
+        case 'SET_USER':
+            return action.data
         default:
-            return null;
+            return state;
     }
 }
 
@@ -19,7 +20,6 @@ export const login = (username, password) => {
     return async dispatch => {
         try {
         const user = await loginService.login(username, password)
-        console.log(user)
         window.localStorage.setItem(
         'logged', JSON.stringify(user)
         )
@@ -41,4 +41,14 @@ export const logout = () => {
         type: 'LOGOUT'
       })
     }
+}
+
+export const setUser = (user) => {
+  if (user !== null){
+    blogService.setToken(user.token)
+  }
+  return {
+    type: 'SET_USER',
+    data: user
+  }
 }

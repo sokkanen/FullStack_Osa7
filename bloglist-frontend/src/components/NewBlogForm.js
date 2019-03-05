@@ -3,8 +3,12 @@ import { Form, Button } from 'react-bootstrap'
 import { setNotification } from '../reducers/notificationReducer'
 import { newBlog } from '../reducers/blogReducer'
 import { connect } from 'react-redux'
+import useField from '../hooks/useField'
 
 const NewBlogForm = (props) => {
+  const blogurl = useField('text')
+  const blogauthor = useField('text')
+  const blogtitle = useField('text')
 
 const createNew = (event) => {
   event.preventDefault()
@@ -22,7 +26,7 @@ const createNew = (event) => {
   } else {
     try {
       props.newBlog(blog)
-      props.setNotification(`A new blog ${blog.title} by ${blog.author} added`, 5)
+      //props.setNotification(`A new blog ${blog.title} by ${blog.author} added`, 5)
     } catch (error) {
       props.setNotification(`Virhe uuden blogin luomisessa: ${error.message}`, 5)
     }
@@ -33,18 +37,12 @@ return (
   <div>
     <form onSubmit={createNew}>
     <Form.Group>
-      <div>
         <Form.Label>Title:</Form.Label>
-        <Form.Control type="text" name="title"/>
-      </div>
-      <div>
+        <Form.Control {...blogtitle} name="title"/>
         <Form.Label>Author:</Form.Label>
-        <Form.Control type="text" name="author"/>
-      </div>
-      <div>
+        <Form.Control {...blogauthor} name="author"/>
         <Form.Label>URL:</Form.Label>
-        <Form.Control type="text" name="url"/>
-      </div>
+        <Form.Control {...blogurl} name="url"/>
       <Button variant="primary" type="submit">Create</Button>
     </Form.Group>
     </form>

@@ -3,9 +3,9 @@ import { Form , Button } from 'react-bootstrap'
 import { setNotification } from '../reducers/notificationReducer'
 import { login } from '../reducers/userReducer'
 import { connect } from 'react-redux'
+import { getAll } from '../reducers/blogReducer'
 
 const LoginForm = (props) => {
-
   const handleLogin = async (event) => {
     event.preventDefault()
     const password = event.target.password.value
@@ -39,6 +39,7 @@ const LoginForm = (props) => {
 
 const mapDispatchToProps = {
   setNotification,
+  getAll,
   login
 }
 
