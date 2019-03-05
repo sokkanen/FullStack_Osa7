@@ -2,13 +2,15 @@ import React, { useEffect } from 'react'
 import Notification from './components/Notification'
 import NewBlogForm from './components/NewBlogForm'
 import BlogList from './components/BlogList'
+import UserList from './components/UserList'
 import LoginForm from './components/LoginForm'
 import LogOutForm from './components/LogoutForm'
 import Togglable from './components/Togglable'
 import { setUser, logout } from './reducers/userReducer'
 import { getAll } from './reducers/blogReducer'
 import { connect } from 'react-redux'
-import { Badge } from 'react-bootstrap'
+import { Badge, Navbar, Nav } from 'react-bootstrap'
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 
 const App = (props) => {
   const user = props.user
@@ -23,35 +25,89 @@ const App = (props) => {
     }
   },[])
 
-  if (user === null){
+  const MainView = () => {
+    if (user === null){
+      return (
+        <div className="container">
+          <Notification/>
+          <Togglable buttonLabel='login'>
+          <LoginForm/>
+          </Togglable>
+        </div>
+      )
+    }
     return (
-      <div class="container">
-        <h2>Blogs</h2>
+      <div className="container">
         <Notification/>
-        <Togglable buttonLabel='login'>
-        <LoginForm/>
-        </Togglable>
+        <NewBlogForm/>
+        <BlogList/>
+      </div>
+      )
+  }
+
+  const UsersView = () => {
+    if (user === null){
+      return (
+        <div className="container">
+          <Notification/>
+          <Togglable buttonLabel='login'>
+          <LoginForm/>
+          </Togglable>
+        </div>
+      )
+    }
+    return (
+      <div>
+      <UserList/>
+      </div>
+    )
+  }
+
+
+  const linkPadding = {padding: 5, color: "white"}
+
+  const BlogAppNavBar = () => {
+    if (user === null){
+      return (
+        <Navbar bg="dark" variant="dark "expand="lg">
+        <Navbar.Brand href="/">BlogApp</Navbar.Brand>
+        </Navbar>
+      )
+    }
+    return (
+      <div>
+      <Navbar bg="dark" variant="dark "expand="lg">
+      <Navbar.Brand href="/">BlogApp</Navbar.Brand>
+      <Navbar.Toggle aria-controls="basic-navbar-nav" />
+      <Navbar.Collapse id="basic-navbar-nav">
+      <Nav className="menu">
+      <div>
+        <Link style={linkPadding} to="/">Blogs</Link>
+        <Link style={linkPadding} to="/users">Users</Link>
+      </div>
+      </Nav>
+      </Navbar.Collapse>
+      <Badge variant="info">{user.name} logged in </Badge>
+      <LogOutForm/>
+      </Navbar>
       </div>
     )
   }
 
   return (
-    <div class="container">
-      <h2><Badge variant="secondary">Blogs</Badge></h2>
-      <Notification/>
-      <div>
-        <h5><Badge variant="info">{user.name} logged in </Badge></h5>
-        <LogOutForm/>
-        <NewBlogForm/>
-        <BlogList/>
-      </div>
+    <Router>
+    <div className="container">
+    <BlogAppNavBar/>
+    <Route exact path="/" render={() => <MainView/>} />  
+    <Route path="/users" render={() => <UsersView />} />
     </div>
+    </Router>
   )
 }
 
 const mapStateToProps = (state) => {
   return {
-    user: state.user,
+    user: state.user
   }
 }
 

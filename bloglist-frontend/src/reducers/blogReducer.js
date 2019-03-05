@@ -13,7 +13,7 @@ const blogReducer = (state = [], action) => {
     case 'UPDATE_BLOG':
       const id = action.data
       const blog = state.find(b => b.id === id)
-      const updatedblogs = state.map(b => b.id !== id ? b : blog)
+      const updatedblogs = state.map(b => b.id !== id ? b : blog).sort((a,b) => b.likes - a.likes)
       return updatedblogs
     default:
       return state 
