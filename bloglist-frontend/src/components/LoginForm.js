@@ -1,42 +1,35 @@
 import React from 'react'
 import { Form , Button } from 'react-bootstrap'
+import { setNotification } from '../reducers/notificationReducer'
+import { login } from '../reducers/userReducer'
+import { connect } from 'react-redux'
 
-const LoginForm = ({ handleLogin, username, password }) => {
+const LoginForm = (props) => {
 
-  /*const handleLogin = async (event) => {
+  const handleLogin = async (event) => {
     event.preventDefault()
-    try {
-      const user = loginService.login(username.value, password.value)
-      window.localStorage.setItem(
-        'logged', JSON.stringify(user)
-      )
-      blogService.setToken(user.token)
-      setUser(user)
-      setErrorMessage(`Käyttäjä ${username.value} kirjautunut`)
-      setTimeout(() => {
-        setErrorMessage('')
-      }, 2000)
-    } catch (exception){
-      console.log(exception)
-      username.reset()
-      password.reset()
-      setErrorMessage('Virheellinen käyttäjätunnus tai salasana')
-      setTimeout(() => {
-        setErrorMessage('')
-      }, 4000)
+    const password = event.target.password.value
+    const username = event.target.username.value
+    event.target.username.value = ''
+    event.target.password.value = ''
+    await props.login(username, password)
+    if (window.localStorage.getItem('logged') === null){
+      props.setNotification('wrong username or password', 5)
+    } else {
+      props.setNotification(`${username} logged in`, 5)
     }
-  }*/
+  }
 
   return (
     <form onSubmit={handleLogin}>
       <Form.Group>
         <div>
           <Form.Label>Käyttäjätunnus:</Form.Label>
-          <Form.Control { ...username } type="text" name="username"/>
+          <Form.Control type="text" name="username"/>
         </div>
         <div>
           <Form.Label>Password:</Form.Label>
-          <Form.Control { ...password } type="password" name="password"/>
+          <Form.Control type="password" name="password"/>
         </div>
         <Button variant="primary" type="submit">kirjaudu</Button>
       </Form.Group>
@@ -44,6 +37,11 @@ const LoginForm = ({ handleLogin, username, password }) => {
   )
 }
 
-export default LoginForm
+const mapDispatchToProps = {
+  setNotification,
+  login
+}
 
-//
+const ConnectedLoginForm = connect(null, mapDispatchToProps)(LoginForm)
+
+export default ConnectedLoginForm

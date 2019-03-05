@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from 'react'
 import Blog from './components/Blog'
-import loginService from './services/login'
 import blogService from './services/blogService'
 import Notification from './components/Notification'
 import NewBlogForm from './components/NewBlogForm'
 import LoginForm from './components/LoginForm'
 import Togglable from './components/Togglable'
 import useField from './hooks/useField'
+import { connect } from 'react-redux'
 import { Table, Button, Badge } from 'react-bootstrap'
 
-const App = () => {
+const App = (props) => {
   const [errorMessage, setErrorMessage] = useState('')
-  const [user, setUser] = useState(null)
+  const user = props.user
   const username = useField('text')
   const password = useField('password')
   const blogurl = useField('text')
@@ -27,7 +27,7 @@ const App = () => {
     })
   }, [])
 
-  useEffect(() => {
+  /*useEffect(() => {
     const logged = window.localStorage.getItem('logged')
     if (logged){
       const user = JSON.parse(logged)
@@ -36,31 +36,7 @@ const App = () => {
     } else {
       setUser(null)
     }
-  }, [])
-
-  const handleLogin = async (event) => {
-    event.preventDefault()
-    try {
-      const user = loginService.login(username.value, password.value)
-      window.localStorage.setItem(
-        'logged', JSON.stringify(user)
-      )
-      blogService.setToken(user.token)
-      setUser(user)
-      setErrorMessage(`Käyttäjä ${username.value} kirjautunut`)
-      setTimeout(() => {
-        setErrorMessage('')
-      }, 2000)
-    } catch (exception){
-      console.log(exception)
-      username.reset()
-      password.reset()
-      setErrorMessage('Virheellinen käyttäjätunnus tai salasana')
-      setTimeout(() => {
-        setErrorMessage('')
-      }, 4000)
-    }
-  }
+  }, [])*/
 
   const logOutHandler = () => {
     window.localStorage.removeItem('logged')
@@ -87,10 +63,7 @@ const App = () => {
         <h2>blogs</h2>
         <Notification/>
         <Togglable buttonLabel='login'>
-          <LoginForm
-            handleLogin = {handleLogin}
-            username = {name}
-            password = {pass}/>
+        <LoginForm/>
         </Togglable>
       </div>
     )
@@ -98,6 +71,7 @@ const App = () => {
   let { reset: a, ...name } = blogname
   let { reset: b, ...author } = blogauthor
   let { reset: c, ...url } = blogurl
+  console.log('JYYYYYYYYYYYYYYYYSEEEEEEEEEEEEEEEERRRRRRRRRRRRRRRRRRR', user)
 
   return (
     <div class="container">
@@ -124,4 +98,13 @@ const App = () => {
   )
 }
 
-export default App
+const mapStateToProps = (state) => {
+  return {
+    user: state.user,
+    blogs: state.blogs
+  }
+}
+
+const ConnectedApp = connect(mapStateToProps)(App)
+
+export default ConnectedApp
