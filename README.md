@@ -1,2 +1,2 @@
 
-Blogilistan frontend ja backend on päivitetty toimimaan yhtenä kokonaisuutena.
+Blogilistan frontend ja backend on rakennettu toimimaan yhtenä kokonaisuutena.
