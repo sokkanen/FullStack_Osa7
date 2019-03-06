@@ -21,7 +21,9 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint .",
-    "lintfix": "eslint --fix ."
+    "lintfix": "eslint --fix .",
+    "cypress:open": "cypress open"
+    
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -34,6 +36,7 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "cypress": "^3.1.5",
     "eslint-plugin-jest": "^22.3.0"
   }
 }

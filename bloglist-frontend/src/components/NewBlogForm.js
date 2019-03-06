@@ -34,11 +34,11 @@ const NewBlogForm = (props) => {
       <form onSubmit={createNew}>
         <Form.Group>
           <Form.Label>Title:</Form.Label>
-          <Form.Control type="text" name="title"/>
+          <Form.Control id="title" type="text" name="title"/>
           <Form.Label>Author:</Form.Label>
-          <Form.Control type="text" name="author"/>
+          <Form.Control id="author" type="text" name="author"/>
           <Form.Label>URL:</Form.Label>
-          <Form.Control type="text" name="url"/>
+          <Form.Control id="url" type="text" name="url"/>
           <Button variant="primary" type="submit">Create</Button>
         </Form.Group>
       </form>

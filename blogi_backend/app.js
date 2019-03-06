@@ -15,6 +15,7 @@ const tokenExtractor = (request, response, next) => {
   next()
 }
 
+console.log('TÄSSÄ OLISI: ', config)
 mongoose.connect(config.mongoUrl, { useNewUrlParser: true })
 .then(()=> {
   console.log('Connected')
@@ -29,5 +30,11 @@ app.use(tokenExtractor)
 app.use('/api/blogs', blogRouter)
 app.use('/api/users', userRouter)
 app.use('/api/login', loginRouter)
+
+if (process.env.NODE_ENV === 'test'){
+  const testRouter = require('./controllers/testRouter')
+  app.use('/api/testing', testRouter)
+}
+
 
 module.exports = app
